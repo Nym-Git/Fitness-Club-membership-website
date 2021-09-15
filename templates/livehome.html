@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'livenav.html' %}
+<head>
+  {% block content %}
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    main{
+      width: 100%;
+      height: 280px;
+      margin: 30px auto;
+      overflow: hidden;
+      position: relative;
+    }
+    section{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      overflow-x: auto;
+    }
+    section::-webkit-scrollbar{
+      visibility: hidden;
+    }
+    .divCLASS{
+      width: 220px;
+      position: relative;
+      text-align: center;
+      font-size: bold;
+      margin: 5px 5px;
+      color: white;
+      transition: 0.5s;
+      box-shadow: 0 4px 8px 0 rgb(77, 71, 71), 0 6px 20px 0 rgba(57, 160, 17, 0.966);
+    }
+    .button {
+      background-color: goldenrod; /* Green */
+      box-shadow: 0 4px 8px 0 rgb(90, 85, 85), 0 6px 20px 0 rgba(54, 175, 6, 0.966);
+      border: none;
+      color: white;
+      padding: 2px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    #logos {
+      margin-left: 10%; 
+      margin-right: 1.50%; 
+      margin-bottom: 2%;
+      margin-top: 2%;
+    }
+
+  </style>
+</head>
+<body style="background-color: rgb(178, 180, 176);">
+  <br><br><br>
+  <div id="logos">
+    {% for c in icons %} 
+      <a style="border-radius: 50%;" href="{% url 'livehome' %}" class="button button5"> <img src="{{ c.Image.url }}" style="border-radius: 50%; width: 100px; height: 100px" alt=""></a>
+    {% endfor %}
+  </div>
+  
+  <!--FITNESS-->
+  <main>
+    <section>
+    {% for i in Fitness_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period }}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in Fitness_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period}}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" style="height: 250px; width:100%" src="data:image/jpeg;base64,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" alt="Card image">
+          <div class="card-img-overlay"><br><br>
+            <button type="button" class="btn btn-outline-warning" style="float: left; border-radius: 50%; margin-left: 23%; width: 100px; height: 100px;">Show more..</button>
+          </div>
+        </div>
+      </div>
+    </section>  
+  </main>
+
+
+
+
+  <!--gym-->
+  <main>
+    <section>
+    {% for i in Gym_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period }}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in Gym_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period}}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" style="height: 250px; width:100%" src="data:image/jpeg;base64,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" alt="Card image">
+          <div class="card-img-overlay"><br><br>
+            <button type="button" class="btn btn-outline-warning" style="float: left; border-radius: 50%; margin-left: 23%; width: 100px; height: 100px;">Show more..</button>
+          </div>
+        </div>
+      </div>
+    </section>  
+  </main>
+
+
+
+  <!--medidation-->
+  <main>
+    <section>
+    {% for i in meditation_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period }}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in meditation_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period}}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" style="height: 250px; width:100%" src="data:image/jpeg;base64,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" alt="Card image">
+          <div class="card-img-overlay"><br><br>
+            <button type="button" class="btn btn-outline-warning" style="float: left; border-radius: 50%; margin-left: 23%; width: 100px; height: 100px;">Show more..</button>
+          </div>
+        </div>
+      </div>
+    </section>  
+  </main>
+
+
+
+  <!--YOGA-->
+  <main>
+    <section>
+    {% for i in YOGA_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period }}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in YOGA_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period}}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" style="height: 250px; width:100%" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISDw8QDxIQDxAPDw8PDw8QDw8PDw8PFRUWFhUVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKBgcGDgcPDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAQAAxQMBIgACEQEDEQH/xAAaAAADAQEBAQAAAAAAAAAAAAABAgMABAUH/8QAKhAAAwACAQMEAgIBBQAAAAAAAAECAxESITFRBBNBkWFxgbEUIlKh4fH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/APjcYyiRjbKgkcnUa6EQDTWisvZFjJaAsam/gi8rJvLXgB6wN92RqHIXmp9OxSZ6f6mBMWka78BmPICB6jtCNgbbBt+TGAzoVseYKLEBDQVJ0cAtAQ4oXRWxEAuxSjQYxgS0Y7FiRgBOXfX/ANJ3n8EZemWqUBPmFUDQ0QBXF1KUzY1o1MBOg8tGmRuKAzlMleAo7SE94BPb0bY3JsVyAtMXRRQbQE+I0wNowDbDsVBQBJ3Wg5b1+znAbkGRUUxwAyRaEKoBVaTAN5UjHKYClwS0M8jDjjYDY4OiYNK0CsyQDVJPJWjP1C/P0c91t7ALyPyUi2SkzoC2h1BPHkXz0/o6JpAZYw8TOkB0ArEZTaN0Alo2ivQOkBJSa60ijOXNW3+gEbMYpijYGxxs64xjY8eiHqfU/E/y/AFqo5PUWn0RFtvv1CkBjDqAATCmM0DQGVPy/spOPZPRpbXYCnssPsj4/Uf7un5+DpTTA43jJuT0eBOsQHCFPR0XhI1DQDTkZnkZMpFL5AKpmW2U0ZABdDOjUjALd9CA+WvgUAzOzuw4tHPh6de5eM6aev8AkA+oydNI4HJ0WyV9wFmNl4xBx6XcrsCbgBQIELgk0UnL8P7DUeAJaDxA1oVgNxGjaJGQHXOYrOU45Y6egOzYlxsgsxWM4EcmIi5PQa2iGTGBzzbRRWJUiAXTA2TVBYCPuUxx5ElFpYFUhHGnvyB50vyBZdsBmSa6hdDSALRNNrsWYlICs3tGOdVowE1RXHbX6IhTA61qu30TvGSmzojKn0f2BBoB03jI1AEykPfcQAHRwHUkIy679S6vwA80PvZDYyYAuSNSdSeydwBzaMx6WhGAZaFq9/oGjaAyRXEvknovPSWBPQ8oEjbAYWkGRmgINGHaMBzmCAABTMYDow5tdO6LuU1tHBstiyeO/wDYBvGTaOyaVfhk8mIDm0ZMeoEApOXyPyTIaMmB0zQ7OachWcgC2iVM6n1JvEgIJFYxeSkwkJ6iumvIC80+iX8jZHpJCYtLq/g1deoBTM2Js2wLRQzZFMYDGCkYCBh3ANAKAbRtAKAbQNAUx5PP2dUXvo/s4B4vQHXkxkKg6MOUe4A4QHReIi0AgUzGAecgfeJAAv7xKq2xQyBTXQWEOCe/7ADkVou0K5AkNNGqRAOhGIqjAdfEDlCti7AfghXCBsKYCvGJ7ZcDQHO5EaOipJ1ICTWjrw5tnI0BAelvZK8ZHFn8/Z0qwOWoEOummRcARBoo5E2ApggAeL8jUiWhpQFpoZk30NzAZoSoHTNsCOjD0jAM2DkT5G2BTmFUiQNgdCfhjKjl5A5Adu0LUHLzflhWR+QK1iJuQr1D/A3+R5QEtDRWhnlXhk6sC83sN5Nfvwc3IADVkbF2HiFQAExkhpgdQBNIrjkPAKATL2Ij5b2xAMNNCjJAUTRhFDMBPRjNgAJgGAIDGAxjGAxgqSsYwIqRljZ1xCH0BxrEOsZ0aBoCM4iigYzYA0FCtmAzYlPoxxMgEApDTJaMYCRiGblC5c3xP2c4F3n8IxHRgAExgMYxgMYOgpADQ0yNMFpkBIgqtG2TqgHdGVkgAdHIHIgmHkBV0LyFBoBuRjKQqQCg6BoPYAqSXqMnwv5NfqF8dTnb2AAmA2BtmAYBzD8DcAE0EfgFSAqkpMGQyAGhtm0BoDOxRljHmAJaGUleIdARcAUlugrQCqA6J3k0SrIwL1kEeUjyABSsz+CbbfcwQF0EzYoBZkjJBAwRTAdWwciOwpAV2ZIEwOkAEiiQEHYDJDaE5gdAU2hKsm2AB+YlWLVCOwGdsSrYroGwCA2zbAxgbNsAtg2AOgAFIOjAEDCYBTDGAfiHkVck6gDe4b3BHINAPzDyESGQFEzbS7kqvXYmBesy+ESeRigAOwbNoOgAYOjaABh1A6xgR0FSXnEZ6XcCagLnXczzeCbewNTAHQdAZGMPEgZYwFTAR91jLN5JAA6Vcv8AAeJyhVNdgLuRW9CrM/2Cr2BjGVjK18pgKYbnPhh91eH9gJoecbM8/hISsrfyBZYvIdSvlf2c2wAdXvT8bB/keEc5gHrK3/0IYIADoJgMZBSHlAKpGYwHoBNmMzAf/9k=" alt="Card image">
+          <div class="card-img-overlay"><br><br>
+            <button type="button" class="btn btn-outline-warning" style="float: left; border-radius: 50%; margin-left: 23%; width: 100px; height: 100px;">Show more..</button>
+          </div>
+        </div>
+      </div>
+    </section>  
+  </main>
+
+
+
+  <!--Boxing-->
+  <main>
+    <section>
+    {% for i in Boxing_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period }}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in Boxing_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period}}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" style="height: 250px; width:100%" src="data:image/jpeg;base64,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" alt="Card image">
+          <div class="card-img-overlay"><br><br>
+            <button type="button" class="btn btn-outline-warning" style="float: left; border-radius: 50%; margin-left: 23%; width: 100px; height: 100px;">Show more..</button>
+          </div>
+        </div>
+      </div>
+    </section>  
+  </main>
+
+
+
+  <!--Dancing-->
+  <main>
+    <section>
+    {% for i in Dancing_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period }}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in Dancing_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period}}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" style="height: 250px; width:100%" src="data:image/jpeg;base64,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" alt="Card image">
+          <div class="card-img-overlay"><br><br>
+            <button type="button" class="btn btn-outline-warning" style="float: left; border-radius: 50%; margin-left: 23%; width: 100px; height: 100px;">Show more..</button>
+          </div>
+        </div>
+      </div>
+    </section>  
+  </main>
+
+
+  
+  <!--judo-->
+  <main>
+    <section>
+    {% for i in judo_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period }}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in judo_cards %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" src="{{ i.Image.url }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text">{{ i.Heading }}</h2>
+            </div>
+            <div><br>
+              <p class="card-text">{{ i.Training_period}}.. <br> with {{i.Trainee_Name}}...</p>
+              <a href="{% url 'details' i.pk %}" class="btn btn-outline-success">Book now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+      <div class="divCLASS" style="height: 253.50px;">
+        <div class="card img-fluid" style="width:300px; height: 250px;">
+          <img class="card-img-top" style="height: 250px; width:100%" src="data:image/jpeg;base64,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" alt="Card image">
+          <div class="card-img-overlay"><br><br>
+            <button type="button" class="btn btn-outline-warning" style="float: left; border-radius: 50%; margin-left: 23%; width: 100px; height: 100px;">Show more..</button>
+          </div>
+        </div>
+      </div>
+    </section>  
+  </main>
+<br><br>
+  {% endblock %}
+</body>
+</html>

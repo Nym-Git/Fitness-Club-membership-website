@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% extends 'livenav.html' %}
+{% block content %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <title>Document</title>
+</head>
+<style>
+  .sidepane  {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    height: 240px;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    margin-top: 93px;
+  }
+
+  .a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #e9e3e3;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .a:hover {
+    color: #f1f1f1;
+  }
+
+  .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+  }
+
+</style>
+<body style="background-color: rgb(229, 226, 226);"> <br><br><br>
+    
+  <div id="mySidepanelll" class="sidepane">
+    <a href="javascript:void(0)" style="color: rgb(247, 198, 6); margin-top: 1%; margin-right: 1%;" class="closebtn" onclick="closeform()">×</a>
+
+    <form method="POST" enctype="multipart/form-data" style="padding: 2%;">
+      {% csrf_token %}
+      <input type="text"  placeholder="message for trainees"  class="form-control" name="filename"><br>
+      <div class="custom-file mb-3">
+        <input type="file" class="custom-file-input" multiple name="uploadfoles" id="customFile" name="filename">
+        <label class="custom-file-label" style="background-color: black; color: blanchedalmond;" for="customFile">Choose file</label>
+      </div><br><br>
+      <button type="submit" class="btn btn-outline-primary"> publish my Post <b></b>now... </b></button>
+    </form>  
+  </div>
+  
+  
+  <div style="padding: 0.50%;">
+  {% for l in local %}
+    {% if user == l.Trainee_Name %}
+    <button type="button" onclick="openform()" class="btn btn-dark btn-lg btn-block"><b>Create</b> a new Post<b>...</b></button>
+    {% endif %}
+  {% endfor %}
+    <hr>
+    <div>
+      {% for i in videos %}
+      <video class="img-thumbnail" style="width: 300px;" src="{{ i.myfiles.url}}"></video>
+      {% endfor %}
+    </div>
+  </div>
+  
+  
+  
+  <!--javascript-->
+  <script>
+  function openform() {
+    document.getElementById("mySidepanelll").style.width = "100%";
+  }
+
+  function closeform() {
+    document.getElementById("mySidepanelll").style.width = "0";
+  }
+  
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+  </script>
+
+  
+</body>
+{% endblock %}
+</html>

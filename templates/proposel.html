@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  {% extends 'livenav.html' %}
+<head>
+  {% block content %}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+  video {
+    width: 100%;
+    height: auto;
+  }
+
+  .main {
+      float: left;
+      width: 50%;
+      padding: 0 20px;
+      margin-top: 10%;
+    }
+
+    .right {
+      float: right;
+      width: 50%;
+      padding: 15px;
+      margin-top: 7px;
+      color: black;
+    }
+
+    iframe{
+      width: 500px;
+    }
+
+    @media only screen and (max-width: 770px) {
+      /* For mobile phones: */
+      .menu, .main, .right {
+        width: 100%;
+      }
+    }
+
+    @media only screen and (max-width: 770px) {
+      /* For mobile phones: */
+      iframe {
+        width: 100%;
+        height: auto;
+      }
+    }
+    @media only screen and (min-width: 770px) {
+      /* For mobile phones: */
+      .main {
+        position: fixed;
+      }
+
+      .right {
+        padding-top: 8%;
+        color: black;
+      }
+    }
+  </style>
+
+  <script type="text/javascript">
+    function colnames()
+    {
+      back = document.querySelector('input[name=flexRadioDefault]:chacked').value;
+    }
+  </script>
+</head>
+<body>
+  
+{% if Details %}
+  {% for i in Details %}
+      <div class="main">
+        <div class="container">
+          <br><br>
+          <video width="400" style="box-shadow: 0 4px 8px 0 rgb(160, 84, 84), 0 6px 20px 0 rgb(81, 250, 14);" autoplay>
+            <source src="{{i.Video.url}}" type="video/mp4">
+            <source src="{{i.Video.url}}" type="video/ogg">
+          </video>      
+        </div>
+      </div>  
+    <div class="right">
+      <div class="container">
+        <br>
+        <p style="color: rgb(253, 174, 2);"> Home > countainer.fit > Live Membership</p>
+        <h1>countainer <b>LIVE</b></h1>
+        <p style="color: cadetblue;">Choose subscription plan...</p>
+        <br>  
+        <div class="container">
+          <form method="POST" class="was-validated">   
+            {% csrf_token %}
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" value="6" checked>
+              <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 2%; width: 75%;">
+                Seven Days 
+                <b style="float: right;">FREE !</b>
+              </label>
+            </div>
+            <hr>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="onemonth" value="31">
+              <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 2%; width: 75%;">
+                One month 
+                <b style="float: right;">{{ i.Seven_Day_Rate }} RS.</b>
+              </label>
+            </div>
+            <hr>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="threemonth" value="91">
+              <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 2%; width: 75%;">
+                Three month 
+                <b style="float: right;">{{ i.One_Month_Rate }} RS.</b>
+              </label>
+            </div>
+            <hr>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="sixmonth" value="182">
+              <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 2%; width: 75%;">
+                Six month 
+                <b style="float: right;">{{ i.Three_Months_Rate }} RS.</b>
+              </label>
+            </div>
+            <hr>            
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="oneyear" value="365">
+              <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 2%; width: 75%;">
+                One year 
+                <b style="float: right;">{{ i.One_year_Rate }} RS.</b>
+              </label>
+            </div>
+            <hr>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="twoyear" value="730">
+              <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 2%; width: 75%;">
+                Two years 
+                <b style="float: right;">{{ i.Two_year_Rate }} RS.</b>
+              </label>
+            </div>
+            <hr>  
+            <!--{{ forms.SevenF }}  <b style="margin-left:2%">Assept the Terms & condition</b>-->          
+            <br><br>
+            <button type="submit" style="width: 70%; margin-left: 7%;" class="btn btn-dark btn-block">pay <b>now</b>..</button>
+          </form>
+          <br><br>
+          <h2>How it works..</h2>
+          <p><img style="width: 50px;" src="/media/Icons/signup.png" alt=""> Sign up for a Live at-home session</p>
+          <p><img style="width: 50px;" src="/media/Icons/pikup.png" alt=""> Pick a comfortable location at your home for the workout</p>
+          <p><img style="width: 50px;" src="/media/Icons/openapp.png" alt=""> Open app/web and join the session at least 2 minutes prior to the start time</p>
+          <p><img style="width: 50px;" src="/media/Icons/instructions.png" alt=""> Follow instructions to set up your mobile/laptop device</p>
+          <p><img style="width: 50px;" src="/media/Icons/voils.png" alt=""> Voila! Now enjoy the awesome LIVE experience</p>      
+          
+          <br><br>
+          <h2>Terms & condition</h2>
+          <p style="margin-left: 2%; text-align:justify; padding-right: 11%;">Subscription is charged through your account at confirmation of purchase and gives you access to all Live and On-Demand Content on countainer.fit.</p>
+          <br>
+          <p style="color: rgb(97, 107, 8);" >By subscribing to cultpass LIVE, you agree to our <a href="http://static.cure.fit/terms.html" style="color: rgb(97, 107, 8);"><b>terms of services</b></a></p>
+        </div>      
+      </div>
+    </div>
+  {% endfor %}
+{% else %}<br><br><br><br>
+    <style>
+      body{
+        background-color: rgb(97, 92, 92); color: rgb(247, 213, 164);
+      }
+    </style>
+  <div class="container"> 
+    <form method="POST" enctype="multipart/form-data" role="form">
+      <h2 style="text-align: center; color: rgb(248, 144, 8);">My payment Process.. <b></b></h2>
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="inputsm">Traninig Sample Video</label>
+        {{form.Video}}
+      </div>
+      <div class="form-group">
+        <label for="inputsm">Rate of the Seven Days training perioud</label>
+        {{form.SevenF}}
+      </div><br>
+      <div class="form-group">
+        <label for="inputsm">Rate of the One month training perioud</label>
+        {{form.OneF}}
+      </div><br>
+      <div class="form-group">
+        <label for="inputsm">Rate of the Three month training perioud</label>
+        {{form.ThreeMF}}
+      </div><br>
+      <div class="form-group">
+        <label for="inputsm">Rate of the One year training perioud</label>
+        {{form.OneYF}}
+      </div><br>
+      <div class="form-group">
+        <label for="inputsm">Rate of the Two year training perioud</label>
+        {{form.TwoYF}}
+      </div><br>
+      <button type="submit" class="btn btn-dark btn-lg btn-block" style="color: rgb(255, 255, 255);"><b>Publish my CARD</b></button>
+      <br>
+    </form>
+  </div>
+{% endif %}
+</body>
+{% endblock %}
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>fitnessClub.com</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap core CSS -->
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<style>
+  div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+  }
+  
+  div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }
+  
+  div.scrollmenu a:hover {
+    background-color: black;
+  }
+
+  @media only screen and (min-width: 768px) {
+    #button {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    #buttonPC {
+      display: none;
+    }
+  }
+
+</style>
+<body>
+
+<div style="background-color: black;">
+  <nav class="navbar navbar-expand-md navbar-dark" >
+    <button style="float: left; margin-right: 7%;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqGlteE9MZA-MpQCmvWYxvw_x5bxXWe1MTWw&usqp=CAU" style="width: 170px; height: 75px; margin-right: 2%;" alt="">
+  <div class="btn-group-vertical">
+    {% if user.is_authenticated %}
+      {% if request.user.is_superuser %} 
+        <a type="button" href="" id="button" class="btn btn-outline-warning"> Admin.. <br>{{ user.username }}</a>
+      {% elif request.user.is_staff %}
+      <a type="button" href="" id="button" class="btn btn-outline-warning"> Master.. <br>{{ user.username }}</a>
+      {% else %}
+        <a type="button" href="" id="button" class="btn btn-outline-warning"> welcome.. <br>{{ user.username }}</a>
+      {% endif %}
+    {% else %}
+        <a type="button" id="button" href="{% url 'register' %}" class="btn btn-outline-success">SignUP</a>
+        <a type="button" id="button" href="{% url 'login' %}" class="btn btn-outline-warning">SignIN</a>
+    {% endif %}
+  </div> 
+    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="margin-left: 2%; float: left;">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}" style="color: rgb(248, 248, 246);"><b>HOME</b></a>
+        </li>
+                
+        <li class="nav-item">
+          <a class="nav-link" href="" style="color: rgb(240, 225, 15);">STORE</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="" style="color: rgb(248, 244, 244);">History</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="" style="color: rgb(248, 237, 237);">AboutUS</a>
+        </li>
+
+        <li class="nav-item">
+          <a type="button" href="{% url 'livehome' %}" class="btn btn-outline-success">Start my Program</a>
+        </li>
+
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}" style="color: rgb(230, 2, 2);">LogOut</a>
+          </li>
+        {% endif %}
+
+      </ul>
+    </div>
+    
+    <!--       
+      <a href="https://github.com/Nym-Git/Blogging-pythonanywhere-WEB-project/blob/master/README.md"><i class="fa fa-github-square fa-3x social" style="color: white; border-color: red;"></i></a>
+    -->
+  <div class="btn-group-vertical" style="margin-left: 1%;">
+    {% if user.is_authenticated %}
+      {% if request.user.is_superuser %} 
+        <a type="button" href="" id="buttonPC" class="btn btn-outline-warning"> Admin.. <br>{{ user.username }}</a>
+      {% elif request.user.is_staff %}
+        <a type="button" href="" id="buttonPC" class="btn btn-outline-warning"> Trainer.. <br>{{ user.username }}</a>
+      {% else %}
+        <a type="button" href="" id="buttonPC" class="btn btn-outline-warning"> welcome.. <br>{{ user.username }}</a>
+      {% endif %}
+    {% else %}
+        <a type="button" id="buttonPC" href="{% url 'register' %}" class="btn btn-outline-success">SignUP</a>
+        <a type="button" id="buttonPC" href="{% url 'login' %}" class="btn btn-outline-warning">SignIN</a>
+    {% endif %}
+  </div>  
+  </nav>
+</div>
+
+<div>
+  {% block content %}
+    
+  {% endblock %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'livenav.html' %}
+{% block content %}
+<html lang="en">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: rgb(229, 226, 226);"> 
+    <div class="card-columns" style=" padding: 100px;">
+      {% for I in classU%}
+      <div class="card" style=" width:220px; height: 250px; border-color: rgb(253, 216, 2); box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <div class="card img-fluid" style="width:220px; height: 250px;">
+          <img class="card-img-top" src="/media/{{ I.imageURL }}" alt="Card image" style="height: 250px; width:100%">
+          <div class="card-img-overlay">
+            <div style="height: 100px;">
+              <h2 class="card-text" style="color: white; text-align: center;">{{ I.Trainer_play }}</h2>
+            </div>
+            <div><br>
+
+              <p class="card-text" style="text-align: center; color: white;">{{ I.Training_period }}.. <br> with {{I.Trainer_Name}}...</p>
+                <a href="{% url 'tclass' I.CardId %}" style="margin-left: 23%;" class="btn btn-outline-success">Continue</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+</body>
+{% endblock %}
+</html>

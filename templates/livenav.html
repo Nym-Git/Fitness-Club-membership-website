@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>fitnessClub.com</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  
+</head>
+<style>
+  div.scrollmenu {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+  }
+  
+  
+  div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }
+  
+  div.scrollmenu a:hover {
+    background-color: black;
+  }
+
+
+  body {
+  font-family: "Lato", sans-serif;
+  }
+
+  .sidepanel  {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    height: 250px;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #e9e3e3;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidepanel .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+  }
+
+</style>
+<body>
+
+<div style="background-color: black; position: fixed; width: 100%;">
+  <nav class="navbar navbar-expand-md navbar-dark" >
+    <div class="btn-group-vertical">
+      {% if user.is_authenticated %}
+        {% if request.user.is_superuser %}  
+          <button type="button" onclick="openNav()" href="" id="buttonPC" class="btn btn-outline-warning"> <img src="https://lh5.googleusercontent.com/-IW55nB2vdmk/AAAAAAAAAAI/AAAAAAAAGes/QvyMF5v2Dlk/photo.jpg" alt="" style="margin-left: 2%; border-radius: 50%; width: 40px; height: 40px;"> <br><b style="color: rgb(98, 161, 16);">Admin</b> {{ user.username }}</button>
+        {% elif request.user.is_staff %}
+          <button type="button" onclick="openNav()" href="" id="buttonPC" class="btn btn-outline-warning"> <img src="https://lh5.googleusercontent.com/-IW55nB2vdmk/AAAAAAAAAAI/AAAAAAAAGes/QvyMF5v2Dlk/photo.jpg" alt="" style="margin-left: 2%; border-radius: 50%; width: 40px; height: 40px;"> <br><b style="color: rgb(98, 161, 16);">Trainer</b> {{ user.username }}</button>
+        {% else %}
+          <button type="button" onclick="openNav()" href="" id="buttonPC" class="btn btn-outline-warning"> <img src="https://lh5.googleusercontent.com/-IW55nB2vdmk/AAAAAAAAAAI/AAAAAAAAGes/QvyMF5v2Dlk/photo.jpg" alt="" style="margin-left: 2%; border-radius: 50%; width: 40px; height: 40px;"> <br><b style="color: rgb(98, 161, 16);">welcome</b> {{ user.username }}</button>
+        {% endif %}
+      {% else %}
+          <a type="button" id="buttonPC" href="{% url 'register' %}" class="btn btn-outline-success">SignUP</a>
+          <a type="button" id="buttonPC" href="{% url 'login' %}" class="btn btn-outline-warning">SignIN</a>
+      {% endif %}
+    </div>  
+        
+    <div class="collapse navbar-collapse" id="collapsibleNavbar" style="margin-left: 2%; float: left;">
+      <ul class="navbar-nav">
+      
+      </ul>
+    </div> 
+
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqGlteE9MZA-MpQCmvWYxvw_x5bxXWe1MTWw&usqp=CAU" style="width: 170px; height: 75px; margin-right: 2%;" alt="">  
+  </nav>
+  </div><br>
+</div>
+
+
+  <!--side nav-->
+  <div id="mySidepanel" class="sidepanel" style="height: 100%;">
+    <a href="javascript:void(0)" style="color: rgb(247, 198, 6);" class="closebtn" onclick="closeNav()">×</a>
+    <a class="a" href="{% url 'home' %}">Home</a>
+    <a class="a" href="{% url 'livehome' %}">Home live</a>
+    <a style="margin-left: 13%; margin-bottom: 7%;" type="button" href="{% url 'class' %}" class="btn btn-outline-info">my enrolls</a>    
+    <a style="margin-left: 13%;" type="button" href="{% url 'card' %}" class="btn btn-outline-primary">fitness store</a>
+    <a style="margin-top: 4%; margin-left: 6%;" class="a" href="{% url 'account' %}">my account</a>
+    <div style="margin-left: 12%; margin-top: 5%; margin-bottom: 3%;">
+      {% if user.is_authenticated %}
+        {% if request.user.is_superuser %}       
+          <a type="button" href="{% url 'card' %}" class="btn btn-outline-success">Start A new Program</a>  
+        {% elif request.user.is_staff %}
+          <a type="button" href="{% url 'card' %}" class="btn btn-outline-success">Start A new Program</a>
+        {% endif %}
+      {% endif %}
+    </div>
+    <a class="a" href="https://www.linkedin.com/in/nema-chandra-goswami/?originalSubdomain=in">Contact to the ADMIN</a>
+    {% if user.is_authenticated %}
+      <a class="a" href="{% url 'logout' %}" style="color: rgb(230, 2, 2); margin-left: 10%;">LogOut</a>
+    {% endif %}
+  </div>
+  <!--javascript-->
+  <script>
+  function openNav() {
+    document.getElementById("mySidepanel").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidepanel").style.width = "0";
+  }
+  </script>
+  <!--side nav close-->    
+
+
+<div>
+  {% block content %}
+
+  {% endblock %}
+</div>
+</body>
+</html>
+
+
